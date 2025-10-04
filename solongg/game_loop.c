@@ -12,32 +12,29 @@
 
 #include "so_long.h"
 
-t_gfx	*init_gfx(t_map *m)
+t_gfx *init_gfx(t_map *m)
 {
-	t_gfx	*g;
+	t_gfx *g;
 
 	g = malloc(sizeof(t_gfx));
 	if (!g)
-		return (write(2, "Error: malloc t_gfx\n", 21), NULL);
+		return (NULL);
 	g->m = m;
 	g->moves = 0;
 	g->mlx = mlx_init();
 	if (!g->mlx)
 	{
 		free(g);
-		return(NULL);
-	}
-	g->win = mlx_new_window(g->mlx, m->width * TILE, m->height * TILE,
-			"so_long");
-	if (!g->win)
-	{
-		mlx_destroy_display(g->mlx);
-		free(g->mlx);
-		free(g);
 		return (NULL);
 	}
+	if (!check_map_fits_screen(g->mlx, m))
+		return (NULL); // free yapma
+	g->win = mlx_new_window(g->mlx, m->width * TILE, m->height * TILE, "so_long");
+	if (!g->win)
+		return (NULL); // free yapma
 	return (g);
 }
+
 
 int	load_textures(t_gfx *g)
 {

@@ -56,7 +56,6 @@ int	post_process(t_map *m)
 	w = (int)ft_strlen(m->map[0]);
 	if (w == 0)
 		return (0);
-	m->width = w;
 	i = 1;
 	while (i < m->height)
 	{

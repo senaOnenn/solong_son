@@ -36,22 +36,18 @@ int	init_map_from_file(char *path, t_map *map)
 	return (1);
 }
 
-int	main(int argc, char **argv)
-{
-	t_map	*map;
-
-	map = malloc(sizeof(t_map));
-	if (!map)
-		return (write(2, "Error: malloc\n", 14), 1);
-
-	if (!validate_args(argc, argv))
-		return (free(map), 1);
-
-	if (!init_map_from_file(argv[1], map))
-		return (free(map), 1);
-
-	run_game(map);
-	return (0);
+int main(int argc, char **argv) 
+{ 
+	t_map *map; 
+	map = malloc(sizeof(t_map)); 
+	if (!map) 
+		return (write(2, "Error: malloc\n", 14), 1); 
+	if (!validate_args(argc, argv)) 
+		return (free(map), 1); 
+	if (!init_map_from_file(argv[1], map)) 
+		return (free(map), 1); 
+	run_game(map); 
+	return (0); 
 }
 
 // int	main(int argc, char **argv)

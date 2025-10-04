@@ -12,6 +12,26 @@
 
 #include "so_long.h"
 
+int	check_map_fits_screen(void *mlx, const t_map *m)
+{
+	int	screen_w;
+	int	screen_h;
+	int	map_w;
+	int	map_h;
+
+	if (!mlx || !m)
+		return (0);
+	mlx_get_screen_size(mlx, &screen_w, &screen_h);
+	map_w = m->width * 64;
+	map_h = m->height * 64;
+	if (map_w > screen_w || map_h > screen_h)
+	{
+		write(2, "Error: map too large for screen\n", 32);
+		return (0);
+	}
+	return (1);
+}
+
 int	read_map(const char *path, t_map *m)
 {
 	int	fd;
@@ -26,6 +46,5 @@ int	read_map(const char *path, t_map *m)
 	read_map_line(fd, m);
 	close(fd);
 	validate_map(m);
-	//check_screen_fit(m);
 	return (1);
 }
